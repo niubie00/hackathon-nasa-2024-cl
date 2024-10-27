@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String          @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  email     String          @unique
+  age       Int?
+  location  String?
+  createdAt DateTime?       @default(now()) @db.Date
+  updatedAt DateTime?       @updatedAt @db.Date
+  sessions  LessonSession[]
+
+  @@map(name: "users")
+}
+
+model Lesson {
+  id          String          @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  image       String?
+  cover       String?
+  description String?
+  color       String?
+  level       Int?
+  courseId    String          @db.ObjectId
+  challenges  Json[]          @default([])
+  course      Course          @relation(fields: [courseId], references: [id])
+  createdAt   DateTime?       @default(now()) @db.Date
+  updatedAt   DateTime?       @updatedAt @db.Date
+  sessions    LessonSession[]
+
+  @@map(name: "lessons")
+}
+
+model Course {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  image       String?
+  description String?
+  lessons     Lesson[]
+  createdAt   DateTime? @default(now()) @db.Date
+  updatedAt   DateTime? @updatedAt @db.Date
+
+  @@map(name: "courses")
+}
+
+model LessonSession {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  lessonId    String    @db.ObjectId
+  userId      String    @db.ObjectId
+  performance Int       @default(0)
+  score       Int       @default(0)
+  maxScore    Int       @default(0)
+  duration    Int?      @default(0)
+  lesson      Lesson    @relation(fields: [lessonId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+  createdAt   DateTime? @default(now()) @db.Date
+  updatedAt   DateTime? @updatedAt @db.Date
+
+  @@map(name: "lesson_sessions")
+}

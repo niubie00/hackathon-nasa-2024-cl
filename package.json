@@ -1,0 +1,44 @@
+{
+  "name": "rescue-squad",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postbuild": "npx prisma generate"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "^0.0.9",
+    "@langchain/openai": "^0.0.24",
+    "@prisma/client": "^5.20.0",
+    "@react-icons/all-files": "^4.1.0",
+    "axios": "^1.7.7",
+    "keen-slider": "^6.8.6",
+    "langchain": "^0.1.4",
+    "lodash": "^4.17.21",
+    "mongodb": "^6.9.0",
+    "next": "14.2.14",
+    "next-connect": "^0.12.2",
+    "openai": "^4.24.7",
+    "prisma": "^5.20.0",
+    "react": "^18",
+    "react-confetti": "^6.1.0",
+    "react-dom": "^18",
+    "swr": "^2.1.1",
+    "zod": "^3.23.8",
+    "zod-to-json-schema": "^3.23.3"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.10",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.14",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5"
+  }
+}
